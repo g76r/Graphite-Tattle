@@ -15,15 +15,16 @@ $GLOBALS['TATTLE_DOMAIN'] = 'http://localhost';
 // GRAPHITE and GANGLIA Settings
 $GLOBALS['PRIMARY_SOURCE'] = 'GRAPHITE'; //Currently can be GRAPHITE or GANGLIA
 $GLOBALS['GRAPHITE_URL'] = 'http://localhost:8000';
+$GLOBALS['PROCESSOR_GRAPHITE_URL'] = ''; // defaults to GRAPHITE_URL
+$GLOBALS['GRAPHITE_AUTOCOMPLETE_RECURSIVE'] = false;
 $GLOBALS['GANGLIA_URL'] = 'http://localhost:8000/ganglia2';
-$GLOBALS['PROCESSOR_GRAPHITE_URL'] = $GLOBALS['GRAPHITE_URL'];
 
 // Graph Styling
 $GLOBALS['ERROR_COLOR'] = 'red';
 $GLOBALS['WARN_COLOR'] = 'yellow';
 $GLOBALS['GRAPH_WIDTH'] = '586';
 $GLOBALS['GRAPH_HEIGHT'] = '308';
-$GLOBALS['WHISPER_DIR'] = '/opt/graphite/storage/whisper/';
+$GLOBALS['WHISPER_DIR'] = '/opt/graphite/storage/whisper/'; // must end with /
 
 // Flourish Related Settings
 $GLOBALS['FLOURISHLIB_PATH'] = '/inc/flourish/';

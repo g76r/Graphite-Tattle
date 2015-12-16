@@ -14,6 +14,8 @@ Concepts
 ### Subscriptions
   A Subscription is a users signing up for to be alerted by a plugin if the Check reaches the Error or Warning state. A user can have multiple subscriptions to an alert based on different threshold and plugins. (Example : SMS for Error, and Email for Warning)
 
+  There are several subscriptions means available out of the shelf: e-mail through SMTP, IRC through IRCcat, HipChat, PagerDuty, PushOver. In addition, it's quite easy to write your own plugin for other notification means.
+
 ### Alerts
   An Alert is the signal that the Check either passed it's defined Error or Warning threshold, or it's returned to the OK state from being in a bad state. The frequency of Alerts is defined by the Repeat Delay (in minutes), which can't be less than the frequency of the processing cronjob.
 
@@ -45,7 +47,7 @@ Installation Requirements
 * [Flourishlib][flourishlib] for the PHP framework
 * [bootstrap][bootstrap] for the HTML/CSS framework
 * http access to a [graphite][graphite] or [ganglia][ganglia] installation
-
+* php-curl for some alerting modules
 
 Installation and Configuration
 -----------------------------
@@ -53,7 +55,7 @@ Installation and Configuration
 
 * Create a session storage folder for flourishlib
 
-* Create a file called inc/config.override.php so that upgrades don't blow away your config
+* Create a file called inc/config.override.php so that upgrades don't blow away your config, you can check inc/config.php content for other available settings:
 
     ```
     <?
@@ -62,13 +64,15 @@ Installation and Configuration
     $GLOBALS['DATABASE_USER'] = 'dbuser';
     $GLOBALS['DATABASE_PASS'] = 'dbpass';
     $GLOBALS['GRAPHITE_URL'] = 'http://graph';
+    ?>
     ```
-
-* Edit inc/config.php with the correct settings (Examples db password)
 
 * Create a logs folder which is writable by your webserver user
 
-* Setup cronjob to to run processor.php. This file can be run either as a cli or through the web server. (cli maybe required depending on your plugins and their required permissions)
+* Setup cronjob to to run processor.php. This script can be theoricaly run either as a cli or through the web server. Even though cli maybe required depending on your plugins and their required permissions, it has been reported to be easier to configure through the web server, e.g. with such a crontab entry:
+    ```
+    * * * * * curl 127.0.0.1/Graphite-Tattle/processor.php
+    ```
 
 * Register via the web interface. (The first user registered is the admin currently prior to us implementing any roles, and other permissions)
 
@@ -118,12 +122,12 @@ How to Contribute
 
 You're interested in contributing to Tattle? Sweet!
 
-fork Tattle from here: http://github.com/wayfair/Graphite-Tattle
+fork Tattle from here: http://github.com/Graphite-Tattle/Tattle
 
 1. Clone your fork
 2. Hackit up
 3. Push the branch up to GitHub
-4. Send a pull request to the wayfair/Graphite-Tattle project.
+4. Send a pull request to the Graphite-Tattle/Tattle project.
 
 We'll do our best to get your changes in as soon as possible!
 
@@ -140,6 +144,6 @@ We'll do our best to get your changes in as soon as possible!
 Contributors
 ---------------------
 In lieu of a list of contributors, check out the commit history for the project:
-https://github.com/wayfair/Graphite-Tattle/graphs/contributors
-Though special shout out to [jpatapoff](https://github.com/jpatapoff/Graphite-Tattle) since he helped a lot, but his commits weren't attributed due to manually merging
+https://github.com/Graphite-Tattle/Tattle/graphs/contributors
+Though special shout out to [jpatapoff](https://github.com/jpatapoff/Graphite-Tattle) since he helped a lot, but his commits weren't attributed due to manually merging and to [f80](https://github.com/f80) who did all his commits with an email address no longer associated to his account.
 
